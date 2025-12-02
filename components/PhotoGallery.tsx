@@ -2,13 +2,50 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Photo } from '../types';
 
+import img1 from '../assets/images/img1.jpg'
+import img2 from '../assets/images/img2.jpg';
+import img3 from '../assets/images/img3.jpg';
+import img4 from '../assets/images/img4.jpg';
+import img5 from '../assets/images/img5.jpg';
+import img6 from '../assets/images/img6.jpg';
+import img7 from '../assets/images/img7.jpg';
+import img8 from '../assets/images/img8.jpg';
+import img9 from '../assets/images/img9.jpg';
+import img10 from '../assets/images/img10.jpg';
+import img11 from '../assets/images/img11.jpg';
+import img12 from '../assets/images/img12.jpg';
+import img13 from '../assets/images/img13.jpg';
+import img14 from '../assets/images/img14.jpg';
+import img15 from '../assets/images/img15.jpg';
+import img16 from '../assets/images/img16.jpg';
+import img17 from '../assets/images/img17.jpg';
+import img18 from '../assets/images/img0.jpg';
+
 const PHOTOS: Photo[] = [
-  { id: 1, url: 'https://picsum.photos/400/500?random=1', caption: "Our first date", rotation: -2 },
-  { id: 2, url: 'https://picsum.photos/400/400?random=2', caption: "That trip to the beach", rotation: 3 },
-  { id: 3, url: 'https://picsum.photos/400/600?random=3', caption: "Your beautiful smile", rotation: -1 },
-  { id: 4, url: 'https://picsum.photos/400/400?random=4', caption: "Adventures together", rotation: 4 },
-  { id: 5, url: 'https://picsum.photos/400/500?random=5', caption: "My favorite person", rotation: -3 },
-  { id: 6, url: 'https://picsum.photos/400/300?random=6', caption: "Forever & Always", rotation: 2 },
+  
+  { id: 5, url: img5, caption: "漫游华农", rotation: -3 },
+  { id: 8, url: img8, caption: "你看风景 我看你", rotation: 5 },
+  { id: 9, url: img9, caption: "乡村一日游", rotation: -1 },
+
+  { id: 2, url: img2, caption: "机场的月色", rotation: 3 },
+  { id: 3, url: img3, caption: "故事的开始", rotation: -2 },
+  { id: 4, url: img4, caption: "Staycation 共度周末", rotation: 4 },
+  
+  { id: 6, url: img6, caption: "闪击 CCNU", rotation: 2 },
+  { id: 7, url: img7, caption: "你给我的百香果\n 好香好甜", rotation: -4 },
+  { id: 10, url: img10, caption: "和你在一起\n\n 泡面也津津有味", rotation: 3 },
+
+  { id: 12, url: img12, caption: "共度生日", rotation: 4 },
+  { id: 15, url: img15, caption: "“没头脑与不高兴”", rotation: -4 },
+  { id: 18, url: img18, caption: "悄咪咪偷拍~", rotation: 3 },
+
+  { id: 11, url: img11, caption: "Yummy!", rotation: -2 },
+  { id: 17, url: img17, caption: "彩蛋（bushi）", rotation: -1 },
+  { id: 1, url: img1, caption: "梦幻又迷离的云彩", rotation: -5 },
+  
+  { id: 13, url: img13, caption: "“双向奔赴”", rotation: -3 },
+  { id: 14, url: img14, caption: "超级惊喜！", rotation: 2 },
+  { id: 16, url: img16, caption: "又飒又可爱😚", rotation: 5 },
 ];
 
 const PhotoGallery: React.FC = () => {

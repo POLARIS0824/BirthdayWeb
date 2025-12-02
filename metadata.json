@@ -1,0 +1,7 @@
+{
+  "name": "taeki's birthday",
+  "description": "A magical, interactive birthday celebration website featuring AI-generated poetry, a photo gallery, and celebratory animations.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

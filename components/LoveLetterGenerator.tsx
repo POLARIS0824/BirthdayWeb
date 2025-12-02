@@ -190,14 +190,14 @@ DF 餐厅的汉堡真好吃！
   };
 
   return (
-    <section className="py-20 bg-pink-50 relative overflow-hidden">
+    <section className="py-12 md:py-20 bg-pink-50 relative overflow-hidden">
       {/* Background Decor */}
       <div className="absolute top-0 right-0 w-64 h-64 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
       <div className="absolute bottom-0 left-0 w-64 h-64 bg-pink-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
 
       <div className="container mx-auto px-4 relative z-10 max-w-2xl">
         <motion.div 
-          className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-white/50"
+          className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl p-6 md:p-8 border border-white/50"
           initial={{ y: 50, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true }}

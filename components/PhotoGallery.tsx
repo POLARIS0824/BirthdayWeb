@@ -62,7 +62,7 @@ const PhotoGallery: React.FC = () => {
           <div className="w-24 h-1 bg-pink-300 mx-auto rounded-full"></div>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 max-w-6xl mx-auto">
           {PHOTOS.map((photo, index) => (
             <motion.div
               key={photo.id}

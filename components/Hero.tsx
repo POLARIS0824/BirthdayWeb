@@ -61,7 +61,7 @@ const Hero: React.FC<HeroProps> = ({ onScrollDown }) => {
 
   return (
     <section 
-      className="relative h-screen flex flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-pink-50 via-white to-pink-100"
+      className="relative h-[100dvh] flex flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-pink-50 via-white to-pink-100"
       onMouseMove={handleMouseMove}
     >
       

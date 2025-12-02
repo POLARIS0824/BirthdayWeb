@@ -66,11 +66,11 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white overflow-x-hidden w-full relative">
       {/* Navigation / Header (Simple) */}
-      <nav className="fixed top-0 w-full z-50 px-6 py-4 flex justify-between items-center pointer-events-none">
+      <nav className="fixed top-0 w-full z-50 px-4 md:px-6 py-3 md:py-4 flex justify-between items-center pointer-events-none">
         <div className="pointer-events-auto bg-white/30 backdrop-blur-md p-2 rounded-full shadow-sm">
-           <span className="font-bold text-pink-600 px-2 handwritten text-xl">Taeki</span>
+           <span className="font-bold text-pink-600 px-2 handwritten text-lg md:text-xl">Taeki</span>
         </div>
         <div className="pointer-events-auto">
           <audio 
@@ -90,7 +90,7 @@ const App: React.FC = () => {
             <motion.div 
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              className="bg-white/80 backdrop-blur-md p-1.5 rounded-full shadow-md flex items-center gap-2 pr-3 border border-white/50"
+              className="bg-white/90 backdrop-blur-md p-1.5 rounded-full shadow-md flex items-center gap-1 md:gap-2 pr-3 border border-white/50 max-w-[calc(100vw-100px)]"
             >
               <button 
                 onClick={playPrev}
@@ -113,7 +113,7 @@ const App: React.FC = () => {
                 <SkipForward size={16} fill="currentColor" />
               </button>
               
-              <div className="flex flex-col w-24 px-2 overflow-hidden">
+              <div className="flex flex-col w-20 md:w-24 px-2 overflow-hidden">
                 <div className="w-full overflow-hidden relative h-4">
                   <motion.div
                     className="flex whitespace-nowrap absolute"

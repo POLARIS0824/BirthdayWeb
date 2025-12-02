@@ -5,6 +5,7 @@ import PhotoGallery from './components/PhotoGallery';
 import LoveLetterGenerator from './components/LoveLetterGenerator';
 import Cake from './components/Cake';
 import LoadingScreen from './components/LoadingScreen';
+import MouseTrailStars from './components/MouseTrailStars';
 import { Gift, Music, Play, Pause, X, SkipForward, SkipBack } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
@@ -102,6 +103,9 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-white overflow-x-hidden w-full relative">
       <LoadingScreen />
+
+      {/* Mouse Trail Stars Effect */}
+      <MouseTrailStars />
 
       <AnimatePresence>
         {showCake && <Cake onClose={() => setShowCake(false)} />}

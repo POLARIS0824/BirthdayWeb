@@ -49,19 +49,48 @@ const PHOTOS: Photo[] = [
   { id: 16, url: img16, caption: "又飒又可爱😚", rotation: 5 },
 ];
 
-const PhotoGallery: React.FC = () => {
+interface PhotoGalleryProps {
+  isVisitor?: boolean;
+}
+
+// Random placeholder images for visitor mode
+const VISITOR_PHOTOS: Photo[] = [
+  { id: 1, url: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?w=500', caption: 'Beautiful Moment', rotation: -3 },
+  { id: 2, url: 'https://images.unsplash.com/photo-1549880338-65ddcdfd017b?w=500', caption: 'Sweet Memory', rotation: 3 },
+  { id: 3, url: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=500', caption: 'Happy Times', rotation: -2 },
+  { id: 4, url: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=500', caption: 'Special Day', rotation: 4 },
+  { id: 5, url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500', caption: 'Wonderful Time', rotation: 2 },
+  { id: 6, url: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=500', caption: 'Great Adventure', rotation: -4 },
+  { id: 7, url: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=500', caption: 'Nature Walk', rotation: 3 },
+  { id: 8, url: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=500', caption: 'Peaceful Moment', rotation: -1 },
+  { id: 9, url: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=500', caption: 'Scenic View', rotation: 5 },
+  { id: 10, url: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=500', caption: 'Sunset Glow', rotation: -3 },
+  { id: 11, url: 'https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=500', caption: 'Morning Light', rotation: 2 },
+  { id: 12, url: 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=500', caption: 'Cloud Nine', rotation: -2 },
+  { id: 13, url: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=500', caption: 'Golden Hour', rotation: 4 },
+  { id: 14, url: 'https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?w=500', caption: 'Misty Morning', rotation: -5 },
+  { id: 15, url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500', caption: 'Mountain Peak', rotation: 3 },
+  { id: 16, url: 'https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=500', caption: 'Forest Path', rotation: -4 },
+  { id: 17, url: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=500', caption: 'Starry Night', rotation: 2 },
+  { id: 18, url: 'https://images.unsplash.com/photo-1504893524553-b855bce32c67?w=500', caption: 'Ocean Breeze', rotation: 5 },
+];
+
+const PhotoGallery: React.FC<PhotoGalleryProps> = ({ isVisitor = false }) => {
   const [selectedPhoto, setSelectedPhoto] = useState<number | null>(null);
   const [imageLoaded, setImageLoaded] = useState<{[key: number]: boolean}>({});
 
+  // Use visitor photos if in visitor mode, otherwise use real photos
+  const displayPhotos = isVisitor ? VISITOR_PHOTOS : PHOTOS;
+
   const handlePrevious = () => {
     if (selectedPhoto !== null) {
-      setSelectedPhoto((selectedPhoto - 1 + PHOTOS.length) % PHOTOS.length);
+      setSelectedPhoto((selectedPhoto - 1 + displayPhotos.length) % displayPhotos.length);
     }
   };
 
   const handleNext = () => {
     if (selectedPhoto !== null) {
-      setSelectedPhoto((selectedPhoto + 1) % PHOTOS.length);
+      setSelectedPhoto((selectedPhoto + 1) % displayPhotos.length);
     }
   };
 
@@ -85,7 +114,7 @@ const PhotoGallery: React.FC = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 max-w-6xl mx-auto">
-          {PHOTOS.map((photo, index) => (
+          {displayPhotos.map((photo, index) => (
             <motion.div
               key={photo.id}
               initial={{ opacity: 0, scale: 0.9, rotate: 0 }}
@@ -182,8 +211,8 @@ const PhotoGallery: React.FC = () => {
                 className="relative"
               >
                 <img
-                  src={PHOTOS[selectedPhoto].url}
-                  alt={PHOTOS[selectedPhoto].caption}
+                  src={displayPhotos[selectedPhoto].url}
+                  alt={displayPhotos[selectedPhoto].caption}
                   className="w-full h-auto max-h-[80vh] object-contain rounded-lg shadow-2xl"
                 />
                 <motion.div
@@ -192,9 +221,9 @@ const PhotoGallery: React.FC = () => {
                   transition={{ delay: 0.2 }}
                   className="text-center mt-6"
                 >
-                  <p className="text-white text-2xl handwritten">{PHOTOS[selectedPhoto].caption}</p>
+                  <p className="text-white text-2xl handwritten">{displayPhotos[selectedPhoto].caption}</p>
                   <p className="text-white/60 text-sm mt-2">
-                    {selectedPhoto + 1} / {PHOTOS.length}
+                    {selectedPhoto + 1} / {displayPhotos.length}
                   </p>
                 </motion.div>
               </motion.div>

@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Send, RefreshCw } from 'lucide-react';
+import { Sparkles, Send, RefreshCw, Lock } from 'lucide-react';
 
-const LoveLetterGenerator: React.FC = () => {
+interface LoveLetterGeneratorProps {
+  isVisitor?: boolean;
+}
+
+const LoveLetterGenerator: React.FC<LoveLetterGeneratorProps> = ({ isVisitor = false }) => {
   const [step, setStep] = useState<'input' | 'result'>('input');
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
@@ -180,13 +184,24 @@ DF 餐厅的汉堡真好吃！
 
   ];
 
+  // Generic messages for visitors
+  const visitorMessages = [
+    `This is a special place filled with cherished memories.`,
+    `Love is the bridge between two hearts.`,
+    `Every moment together creates a beautiful story.`,
+    `Time spent with someone special is never wasted.`,
+    `The best memories are made with the people we love.`,
+  ];
+
+  const displayMessages = isVisitor ? visitorMessages : messages;
+
   const handleGenerate = () => {
     setStep('result');
     setCurrentIndex(0);
   };
 
   const handleNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % messages.length);
+    setCurrentIndex((prev) => (prev + 1) % displayMessages.length);
   };
 
   return (
@@ -204,10 +219,12 @@ DF 餐厅的汉堡真好吃！
         >
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center p-3 bg-pink-100 rounded-full mb-4">
-              <Sparkles className="text-pink-500 w-6 h-6" />
+              {isVisitor ? <Lock className="text-pink-500 w-6 h-6" /> : <Sparkles className="text-pink-500 w-6 h-6" />}
             </div>
             <h2 className="text-3xl font-bold text-gray-800 handwritten">Love Letter</h2>
-            <p className="text-gray-500 mt-2">A special message just for you.</p>
+            <p className="text-gray-500 mt-2">
+              {isVisitor ? 'This content is restricted to verified users only.' : 'A special message just for you.'}
+            </p>
           </div>
 
           <AnimatePresence mode="wait">
@@ -220,19 +237,35 @@ DF 餐厅的汉堡真好吃！
                 className="space-y-8 text-center"
               >
                 <p className="text-lg text-gray-600">
-                  Click the button below to reveal a heartfelt message written just for you.
+                  {isVisitor
+                    ? 'These are private messages meant only for someone special. Verify your identity to access the real content.'
+                    : 'Click the button below to reveal a heartfelt message written just for you.'}
                 </p>
 
-                <motion.button 
+                <motion.button
                   onClick={handleGenerate}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full bg-gradient-to-r from-pink-500 to-purple-500 text-white py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 group relative overflow-hidden"
+                  className={`w-full py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 group relative overflow-hidden ${
+                    isVisitor
+                      ? 'bg-gray-300 text-gray-600 cursor-default'
+                      : 'bg-gradient-to-r from-pink-500 to-purple-500 text-white'
+                  }`}
                 >
                   <span className="relative z-10 flex items-center gap-2">
-                    Reveal Message <Send size={18} className="group-hover:translate-x-1 transition-transform" />
+                    {isVisitor ? (
+                      <>
+                        <Lock size={18} /> Content Locked
+                      </>
+                    ) : (
+                      <>
+                        Reveal Message <Send size={18} className="group-hover:translate-x-1 transition-transform" />
+                      </>
+                    )}
                   </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  {!isVisitor && (
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  )}
                 </motion.button>
               </motion.div>
             )}
@@ -247,13 +280,15 @@ DF 餐厅的汉堡真好吃！
               >
                 <div className="bg-pink-50/50 p-6 rounded-xl border border-pink-100 relative">
                   <div className="absolute -top-3 -left-3 text-4xl">❝</div>
-                  <motion.p 
+                  <motion.p
                     key={currentIndex}
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="text-gray-700 text-lg leading-relaxed whitespace-pre-line font-serif italic relative z-10"
+                    className={`text-lg leading-relaxed whitespace-pre-line relative z-10 ${
+                      isVisitor ? 'text-gray-600 text-center font-sans' : 'text-gray-700 font-serif italic'
+                    }`}
                   >
-                    {messages[currentIndex]}
+                    {displayMessages[currentIndex]}
                   </motion.p>
                   <div className="absolute -bottom-3 -right-3 text-4xl rotate-180">❝</div>
                 </div>

@@ -6,6 +6,7 @@ import LoveLetterGenerator from './components/LoveLetterGenerator';
 import Cake from './components/Cake';
 import LoadingScreen from './components/LoadingScreen';
 import MouseTrailStars from './components/MouseTrailStars';
+import AuthModal from './components/AuthModal';
 import { Gift, Music, Play, Pause, X, SkipForward, SkipBack } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
@@ -39,6 +40,15 @@ const App: React.FC = () => {
   const [isCelebrationOpen, setIsCelebrationOpen] = useState(false);
   const [showCake, setShowCake] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  // Authentication state
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isVisitor, setIsVisitor] = useState(false);
+
+  const handleAuthenticated = (visitor: boolean) => {
+    setIsAuthenticated(true);
+    setIsVisitor(visitor);
+  };
 
   const scrollToGallery = () => {
     galleryRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -102,6 +112,9 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white overflow-x-hidden w-full relative">
+      {/* Show authentication modal if not authenticated */}
+      {!isAuthenticated && <AuthModal onAuthenticated={handleAuthenticated} />}
+
       <LoadingScreen />
 
       {/* Mouse Trail Stars Effect */}
@@ -203,10 +216,10 @@ const App: React.FC = () => {
         <Countdown isModalOpen={isCelebrationOpen} setIsModalOpen={setIsCelebrationOpen} onCelebrate={handleCelebrate} />
 
         <div ref={galleryRef}>
-          <PhotoGallery />
+          <PhotoGallery isVisitor={isVisitor} />
         </div>
 
-        <LoveLetterGenerator />
+        <LoveLetterGenerator isVisitor={isVisitor} />
 
         {/* Footer / Surprise Section */}
         <section className="py-24 bg-gray-900 text-white relative overflow-hidden text-center">

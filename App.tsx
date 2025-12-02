@@ -22,14 +22,14 @@ import bgm7 from './assets/music/银临 - 落英.flac';
 import bgm8 from './assets/music/黄龄 - 等待.flac';
 
 const PLAYLIST = [
-  { title: "Take Me To Your Heart", src: bgm1 },
-  { title: "I Really Want to Stay at You", src: bgm2 },
-  { title: "永不失联的爱", src: bgm3 },
-  { title: "五十年以后", src: bgm4 },
-  { title: "我只喜欢你", src: bgm5 },
-  { title: "归期", src: bgm6 },
-  { title: "落英", src: bgm7 },
-  { title: "等待", src: bgm8 },
+  { title: "Take Me To Your Heart - Michael Learns To Rock", src: bgm1 },
+  { title: "I Really Want to Stay at You - Samuel Kim Lorien", src: bgm2 },
+  { title: "永不失联的爱 - 单依纯", src: bgm3 },
+  { title: "五十年以后 - 小阿七", src: bgm4 },
+  { title: "我只喜欢你 - 胡夏", src: bgm5 },
+  { title: "归期 - 钱润玉", src: bgm6 },
+  { title: "落英 - 银临", src: bgm7 },
+  { title: "等待 - 黄龄", src: bgm8 },
 ];
 
 const App: React.FC = () => {

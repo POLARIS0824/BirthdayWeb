@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import Hero from './components/Hero';
+import Countdown from './components/Countdown';
 import PhotoGallery from './components/PhotoGallery';
 import LoveLetterGenerator from './components/LoveLetterGenerator';
 import { Gift, Music, Play, Pause, X, SkipForward, SkipBack } from 'lucide-react';
@@ -31,6 +32,7 @@ const App: React.FC = () => {
   const [isPlayerOpen, setIsPlayerOpen] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+  const [isCelebrationOpen, setIsCelebrationOpen] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const scrollToGallery = () => {
@@ -69,9 +71,12 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-white overflow-x-hidden w-full relative">
       {/* Navigation / Header (Simple) */}
       <nav className="fixed top-0 w-full z-50 px-4 md:px-6 py-3 md:py-4 flex justify-between items-center pointer-events-none">
-        <div className="pointer-events-auto bg-white/30 backdrop-blur-md p-2 rounded-full shadow-sm">
+        <button 
+          onClick={() => setIsCelebrationOpen(true)}
+          className="pointer-events-auto bg-white/30 backdrop-blur-md p-2 rounded-full shadow-sm hover:bg-white/50 transition-colors cursor-pointer"
+        >
            <span className="font-bold text-pink-600 px-2 handwritten text-lg md:text-xl">Taeki</span>
-        </div>
+        </button>
         <div className="pointer-events-auto">
           <audio 
             ref={audioRef} 
@@ -150,8 +155,11 @@ const App: React.FC = () => {
       </nav>
 
       <main>
+        {/* 确保 Hero 组件不会被 fixed 的 nav 遮挡 */}
         <Hero onScrollDown={scrollToGallery} />
         
+        <Countdown isModalOpen={isCelebrationOpen} setIsModalOpen={setIsCelebrationOpen} />
+
         <div ref={galleryRef}>
           <PhotoGallery />
         </div>

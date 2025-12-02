@@ -5,10 +5,13 @@ import { Clock, X, PartyPopper } from 'lucide-react';
 interface CountdownProps {
   isModalOpen: boolean;
   setIsModalOpen: (isOpen: boolean) => void;
+  onCelebrate: () => void;
 }
 
-const Countdown: React.FC<CountdownProps> = ({ isModalOpen, setIsModalOpen }) => {
+const Countdown: React.FC<CountdownProps> = ({ isModalOpen, setIsModalOpen, onCelebrate }) => {
   const [timeLeft, setTimeLeft] = useState<{days: number, hours: number, minutes: number, seconds: number} | null>(null);
+  const hasInitialized = React.useRef(false);
+  const prevTimeRef = React.useRef<{days: number, hours: number, minutes: number, seconds: number} | null>(null);
 
   useEffect(() => {
     const calculateTimeLeft = () => {
@@ -29,23 +32,31 @@ const Countdown: React.FC<CountdownProps> = ({ isModalOpen, setIsModalOpen }) =>
       };
     };
 
+    // Initial check
     const initialTime = calculateTimeLeft();
     setTimeLeft(initialTime);
+    prevTimeRef.current = initialTime;
     
-    if (initialTime === null) {
+    // Only open modal on mount if time is up and we haven't checked before
+    if (initialTime === null && !hasInitialized.current) {
       setIsModalOpen(true);
+      hasInitialized.current = true;
     }
 
     const timer = setInterval(() => {
       const newTime = calculateTimeLeft();
       setTimeLeft(newTime);
-      if (newTime === null && timeLeft !== null) {
+      
+      // Check if countdown just finished
+      if (newTime === null && prevTimeRef.current !== null) {
         setIsModalOpen(true);
       }
+      
+      prevTimeRef.current = newTime;
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [timeLeft, setIsModalOpen]);
+  }, [setIsModalOpen]);
 
   return (
     <>
@@ -83,7 +94,10 @@ const Countdown: React.FC<CountdownProps> = ({ isModalOpen, setIsModalOpen }) =>
                 </p>
                 
                 <button
-                    onClick={() => setIsModalOpen(false)}
+                    onClick={() => {
+                      setIsModalOpen(false);
+                      onCelebrate();
+                    }}
                     className="bg-pink-500 text-white px-8 py-3 rounded-full font-semibold hover:bg-pink-600 transition-colors shadow-lg hover:shadow-xl"
                 >
                     Let's Celebrate!

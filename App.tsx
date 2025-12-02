@@ -3,8 +3,10 @@ import Hero from './components/Hero';
 import Countdown from './components/Countdown';
 import PhotoGallery from './components/PhotoGallery';
 import LoveLetterGenerator from './components/LoveLetterGenerator';
+import Cake from './components/Cake';
 import { Gift, Music, Play, Pause, X, SkipForward, SkipBack } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import confetti from 'canvas-confetti';
 
 // Import music files
 import bgm1 from './assets/music/Michael Learns To Rock - Take Me To Your Heart-《.flac';
@@ -33,6 +35,7 @@ const App: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [isCelebrationOpen, setIsCelebrationOpen] = useState(false);
+  const [showCake, setShowCake] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   const scrollToGallery = () => {
@@ -66,9 +69,41 @@ const App: React.FC = () => {
     setCurrentTrackIndex((prev) => (prev - 1 + PLAYLIST.length) % PLAYLIST.length);
     setIsPlaying(true);
   };
+  const handleCelebrate = () => {
+    setShowCake(true);
+    // Trigger confetti
+    const duration = 3000;
+    const end = Date.now() + duration;
+
+    const frame = () => {
+      confetti({
+        particleCount: 2,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0 },
+        colors: ['#ec4899', '#f472b6', '#fbcfe8']
+      });
+      confetti({
+        particleCount: 2,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1 },
+        colors: ['#ec4899', '#f472b6', '#fbcfe8']
+      });
+
+      if (Date.now() < end) {
+        requestAnimationFrame(frame);
+      }
+    };
+    frame();
+  };
 
   return (
     <div className="min-h-screen bg-white overflow-x-hidden w-full relative">
+      <AnimatePresence>
+        {showCake && <Cake onClose={() => setShowCake(false)} />}
+      </AnimatePresence>
+
       {/* Navigation / Header (Simple) */}
       <nav className="fixed top-0 w-full z-50 px-4 md:px-6 py-3 md:py-4 flex justify-between items-center pointer-events-none">
         <button 

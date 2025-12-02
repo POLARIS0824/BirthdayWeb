@@ -4,6 +4,7 @@ import Countdown from './components/Countdown';
 import PhotoGallery from './components/PhotoGallery';
 import LoveLetterGenerator from './components/LoveLetterGenerator';
 import Cake from './components/Cake';
+import LoadingScreen from './components/LoadingScreen';
 import { Gift, Music, Play, Pause, X, SkipForward, SkipBack } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import confetti from 'canvas-confetti';
@@ -100,6 +101,8 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white overflow-x-hidden w-full relative">
+      <LoadingScreen />
+
       <AnimatePresence>
         {showCake && <Cake onClose={() => setShowCake(false)} />}
       </AnimatePresence>
@@ -193,7 +196,7 @@ const App: React.FC = () => {
         {/* 确保 Hero 组件不会被 fixed 的 nav 遮挡 */}
         <Hero onScrollDown={scrollToGallery} />
         
-        <Countdown isModalOpen={isCelebrationOpen} setIsModalOpen={setIsCelebrationOpen} />
+        <Countdown isModalOpen={isCelebrationOpen} setIsModalOpen={setIsCelebrationOpen} onCelebrate={handleCelebrate} />
 
         <div ref={galleryRef}>
           <PhotoGallery />

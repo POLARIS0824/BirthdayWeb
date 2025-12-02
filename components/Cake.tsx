@@ -50,21 +50,21 @@ const Cake: React.FC<CakeProps> = ({ onClose }) => {
                         0 30px 0px #f472b6;
                 }
                 .layer-bottom {
-                    width: 240px;
-                    height: 80px;
-                    z-index: 1;
+                    width: 120px;
+                    height: 50px;
+                    z-index: 3;
+                    margin-bottom: -10px;
                 }
                 .layer-middle {
                     width: 180px;
-                    height: 70px;
+                    height: 55px;
                     z-index: 2;
-                    margin-bottom: -20px;
+                    margin-bottom: -10px;
                 }
                 .layer-top {
-                    width: 120px;
+                    width: 240px;
                     height: 60px;
-                    z-index: 3;
-                    margin-bottom: -15px;
+                    z-index: 1;
                 }
                 .icing {
                     position: absolute;
@@ -85,11 +85,11 @@ const Cake: React.FC<CakeProps> = ({ onClose }) => {
                 }
                 .candle {
                     position: absolute;
-                    top: -30px;
+                    top: -25px;
                     left: 50%;
                     transform: translateX(-50%);
-                    width: 12px;
-                    height: 35px;
+                    width: 10px;
+                    height: 40px;
                     background: repeating-linear-gradient(
                         45deg,
                         #fff,
@@ -118,10 +118,10 @@ const Cake: React.FC<CakeProps> = ({ onClose }) => {
                 }
                 .plate {
                     position: absolute;
-                    bottom: -20px;
+                    bottom: -38px;
                     left: 50%;
                     transform: translateX(-50%);
-                    width: 280px;
+                    width: 290px;
                     height: 10px;
                     background: #e5e7eb;
                     border-radius: 50%;
@@ -139,30 +139,30 @@ const Cake: React.FC<CakeProps> = ({ onClose }) => {
                 
                 <div className="layer layer-bottom">
                     <div className="icing"></div>
-                    <div className="drip" style={{ left: '20px', height: '25px' }}></div>
-                    <div className="drip" style={{ left: '60px', height: '20px' }}></div>
-                    <div className="drip" style={{ left: '100px', height: '28px' }}></div>
-                    <div className="drip" style={{ left: '150px', height: '22px' }}></div>
-                    <div className="drip" style={{ left: '200px', height: '26px' }}></div>
-                </div>
-                
-                <div className="layer layer-middle">
-                    <div className="icing"></div>
-                    <div className="drip" style={{ left: '15px', height: '20px' }}></div>
-                    <div className="drip" style={{ left: '50px', height: '25px' }}></div>
-                    <div className="drip" style={{ left: '90px', height: '18px' }}></div>
-                    <div className="drip" style={{ left: '130px', height: '24px' }}></div>
-                </div>
-                
-                <div className="layer layer-top">
-                    <div className="icing"></div>
-                    <div className="drip" style={{ left: '10px', height: '18px' }}></div>
-                    <div className="drip" style={{ left: '40px', height: '22px' }}></div>
-                    <div className="drip" style={{ left: '80px', height: '15px' }}></div>
-                    
+                    <div className="drip" style={{ left: '10px', height: '15px' }}></div>
+                    <div className="drip" style={{ left: '40px', height: '18px' }}></div>
+                    <div className="drip" style={{ left: '80px', height: '12px' }}></div>
+
                     <div className="candle">
                         <div className="flame"></div>
                     </div>
+                </div>
+
+                <div className="layer layer-middle">
+                    <div className="icing"></div>
+                    <div className="drip" style={{ left: '15px', height: '16px' }}></div>
+                    <div className="drip" style={{ left: '50px', height: '20px' }}></div>
+                    <div className="drip" style={{ left: '90px', height: '14px' }}></div>
+                    <div className="drip" style={{ left: '130px', height: '18px' }}></div>
+                </div>
+
+                <div className="layer layer-top">
+                    <div className="icing"></div>
+                    <div className="drip" style={{ left: '20px', height: '20px' }}></div>
+                    <div className="drip" style={{ left: '60px', height: '16px' }}></div>
+                    <div className="drip" style={{ left: '100px', height: '22px' }}></div>
+                    <div className="drip" style={{ left: '150px', height: '18px' }}></div>
+                    <div className="drip" style={{ left: '200px', height: '20px' }}></div>
                 </div>
             </motion.div>
         </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Lock, UserX, Heart } from 'lucide-react';
+import { validateInput, getHashParts, reconstructHash } from '../utils/security';
 
 interface AuthModalProps {
   onAuthenticated: (isVisitor: boolean) => void;
@@ -11,20 +12,30 @@ const AuthModal: React.FC<AuthModalProps> = ({ onAuthenticated }) => {
   const [error, setError] = useState('');
   const [isShaking, setIsShaking] = useState(false);
 
-  // Question and correct answer
+  // Question text
   const QUESTION = "When we become a couple?";
-  const CORRECT_ANSWER = "250904"; // Case-insensitive
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (answer.toLowerCase().trim() === CORRECT_ANSWER.toLowerCase()) {
-      setError('');
-      onAuthenticated(false); // Not a visitor
-    } else {
-      setError('Incorrect answer. Please try again!');
-      setIsShaking(true);
-      setTimeout(() => setIsShaking(false), 500);
+    try {
+      // Reconstruct the hash from obfuscated parts
+      const hashParts = getHashParts();
+      const targetHash = reconstructHash(hashParts);
+
+      // Validate input using timing-safe comparison
+      const isValid = await validateInput(answer, targetHash);
+
+      if (isValid) {
+        setError('');
+        onAuthenticated(false); // Not a visitor
+      } else {
+        setError('Incorrect answer. Please try again!');
+        setIsShaking(true);
+        setTimeout(() => setIsShaking(false), 500);
+      }
+    } catch (err) {
+      setError('An error occurred. Please try again.');
     }
   };
 
